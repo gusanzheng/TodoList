@@ -9,12 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4 
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22.14.0'  
-          cache: 'npm'  # 添加 npm 缓存
-      - run: npm install
-      - run: npm run build
-      - run: npm run deploy
+          node-version: '22.14.0'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+          
+      - name: Build project
+        run: npm run build
+          
+      - name: Deploy
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          npm run deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 自动生成的令牌
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
