@@ -17,4 +17,4 @@ jobs:
       - run: npm run build
       - run: npm run deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 会在每次工作流运行时自动创建临时令牌
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
